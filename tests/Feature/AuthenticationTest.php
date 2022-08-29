@@ -12,7 +12,8 @@ test('users can register an account', function () {
         'password_confirmation' => $password
     ]);
 
-    $response->assertJson(fn(AssertableJson $json) => $json->hasAll('data.user', 'data.type', 'data.token'));
+    $response->assertOk()
+        ->assertJson(fn(AssertableJson $json) => $json->hasAll('data.user', 'data.type', 'data.token'));
 });
 
 test('users can authenticate', function () {
@@ -23,7 +24,8 @@ test('users can authenticate', function () {
         'password' => 'password',
     ]);
 
-    $response->assertJson(fn(AssertableJson $json) => $json->hasAll('data.type', 'data.token'));
+    $response->assertOk()
+        ->assertJson(fn(AssertableJson $json) => $json->hasAll('data.type', 'data.token'));
 });
 
 test('users can not authenticate with invalid password', function () {
@@ -34,7 +36,8 @@ test('users can not authenticate with invalid password', function () {
         'password' => 'wrong-password',
     ]);
 
-    $response->assertJson([
-        'message' => 'The given credentials are invalid'
-    ]);
+    $response->assertUnauthorized()
+        ->assertJson([
+            'message' => 'The given credentials are invalid'
+        ]);
 });
