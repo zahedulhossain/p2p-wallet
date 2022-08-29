@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\AuthenticationController;
+use App\Http\Controllers\Api\RegisteredUserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +16,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::get('ping', function () {
+    return response()->json([
+        'success' => 'self-hosted',
+    ]);
+})->name('ping');
+
+Route::post('login', [AuthenticationController::class, 'store']);
+Route::post('register', RegisteredUserController::class);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('logout', [AuthenticationController::class, 'destroy']);
 });
