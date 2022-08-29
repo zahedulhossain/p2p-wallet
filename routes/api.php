@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthenticationController;
 use App\Http\Controllers\Api\RegisteredUserController;
+use App\Http\Controllers\WalletController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('ping', function () {
     return response()->json([
-        'success' => 'self-hosted',
+        'success' => true,
     ]);
 })->name('ping');
 
@@ -27,4 +28,6 @@ Route::post('register', RegisteredUserController::class);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', [AuthenticationController::class, 'destroy']);
+
+    Route::post('wallets', [WalletController::class, 'store']);
 });
