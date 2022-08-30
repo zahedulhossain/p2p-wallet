@@ -2,19 +2,6 @@
 
 use App\Models\User;
 use Illuminate\Testing\Fluent\AssertableJson;
-use function Pest\Faker\faker;
-
-test('users can register an account', function () {
-    $response = $this->postJson('/api/register', [
-        'name' => faker()->name,
-        'email' => faker()->email,
-        'password' => $password = faker()->password,
-        'password_confirmation' => $password
-    ]);
-
-    $response->assertOk()
-        ->assertJson(fn(AssertableJson $json) => $json->hasAll('data.user', 'data.type', 'data.token'));
-});
 
 test('users can authenticate', function () {
     $user = User::factory()->create();
