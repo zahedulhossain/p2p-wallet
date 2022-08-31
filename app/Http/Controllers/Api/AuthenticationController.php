@@ -14,7 +14,7 @@ class AuthenticationController extends Controller
 {
     public function store(LoginRequest $request): \Illuminate\Http\JsonResponse
     {
-        $user = User::where('email', $request->input('username'))->first();
+        $user = User::query()->where('email', $request->input('username'))->first();
 
         if (!$user || !Hash::check($request->input('password'), $user->password)) {
             return response()->json(
