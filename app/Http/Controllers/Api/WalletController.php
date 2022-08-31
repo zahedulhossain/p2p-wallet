@@ -7,6 +7,7 @@ use App\Http\Requests\WalletRequest;
 use App\Http\Resources\WalletResource;
 use App\Models\Wallet;
 use Illuminate\Http\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class WalletController extends Controller
 {
@@ -18,9 +19,7 @@ class WalletController extends Controller
             ->first();
 
         if ($wallet) {
-            return response()->json([
-                'message' => 'You can have only one wallet for ' . $request->input('currency_code') . ' currency!',
-            ], Response::HTTP_FORBIDDEN);
+            throw new AccessDeniedHttpException('You can have only one wallet for ' . $request->input('currency_code') . ' currency!');
         }
 
         $wallet = Wallet::query()->create([

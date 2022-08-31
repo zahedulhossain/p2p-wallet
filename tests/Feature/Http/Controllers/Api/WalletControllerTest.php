@@ -31,6 +31,7 @@ test('a user can have only one wallet for a currency', function () {
 
     $response->assertForbidden()
         ->assertJson(fn(AssertableJson $json) =>
-            $json->has('message')->missing('data')
+        $json->where('message', 'You can have only one wallet for ' . $currency->code . ' currency!')
+            ->etc()
         );
 });
