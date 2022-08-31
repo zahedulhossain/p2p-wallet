@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\WalletRequest;
+use App\Http\Resources\WalletResource;
 use App\Models\Wallet;
 use Illuminate\Http\Response;
 
@@ -29,7 +30,7 @@ class WalletController extends Controller
 
         return response()->json([
             'data' => [
-                'wallet' => $wallet
+                'wallet' => new WalletResource($wallet)
             ]
         ], Response::HTTP_CREATED);
     }

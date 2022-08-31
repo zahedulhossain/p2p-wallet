@@ -14,7 +14,7 @@ test('users can create wallet', function () {
     ]);
 
     $response->assertCreated()
-        ->assertJson(fn(AssertableJson $json) => $json->hasAll('data.wallet'));
+        ->assertJson(fn(AssertableJson $json) => $json->has('data.wallet'));
 });
 
 test('a user can have only one wallet for a currency', function () {
