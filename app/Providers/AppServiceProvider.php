@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Services\CurrencyConverter\CurrencyConverter;
+use App\Services\CurrencyConverter\OpenExchangeRates;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(CurrencyConverter::class, OpenExchangeRates::class);
     }
 
     /**
