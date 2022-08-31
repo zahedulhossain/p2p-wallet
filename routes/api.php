@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthenticationController;
+use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\RegisteredUserController;
 use App\Http\Controllers\Api\WalletController;
 use Illuminate\Support\Facades\Route;
@@ -29,4 +30,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', [AuthenticationController::class, 'destroy']);
 
     Route::post('wallets', [WalletController::class, 'store']);
+
+    Route::post('payments', [PaymentController::class, 'store']);
 });

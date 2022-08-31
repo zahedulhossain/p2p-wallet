@@ -18,6 +18,40 @@ class CurrencyFactory extends Factory
     {
         return [
             'code' => $this->faker->unique()->currencyCode(),
+            'name' => $this->faker->word
         ];
+    }
+
+    public function usd()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'code' => 'USD',
+                'name' => 'United States dollar',
+                'symbol' => '$'
+            ];
+        });
+    }
+
+    public function eur()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'code' => 'EUR',
+                'name' => 'Euro',
+                'symbol' => '€'
+            ];
+        });
+    }
+
+    public function bdt()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'code' => 'BDT',
+                'name' => 'Bangladeshi taka',
+                'symbol' => '৳'
+            ];
+        });
     }
 }
