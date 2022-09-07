@@ -7,8 +7,8 @@ use Illuminate\Support\Facades\Http;
 
 class OpenExchangeRates implements CurrencyConverter
 {
-    protected $url;
-    protected $appId;
+    protected string $url;
+    protected string $appId;
 
     public function __construct()
     {
@@ -16,7 +16,7 @@ class OpenExchangeRates implements CurrencyConverter
         $this->appId = config('services.openexchangerates.app_id');
     }
 
-    public function convert($amount, $from, $to)
+    public function convert($amount, $from, $to): array
     {
         $responseArr = $this->getLatestRates($from, $to);
 

@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Hash;
 
 class RegisteredUserController extends Controller
 {
-    public function __invoke(RegisterRequest $request, CreateNewUser $creator): \Illuminate\Http\JsonResponse
+    public function __invoke(RegisterRequest $request): \Illuminate\Http\JsonResponse
     {
         $user = User::query()->create([
             'name' => $request->validated('name'),
