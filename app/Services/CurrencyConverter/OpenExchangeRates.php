@@ -2,6 +2,7 @@
 
 namespace App\Services\CurrencyConverter;
 
+use App\Values\ConvertedMoney;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Http;
 
@@ -16,21 +17,15 @@ class OpenExchangeRates implements CurrencyConverter
         $this->appId = config('services.openexchangerates.app_id');
     }
 
-    public function convert($amount, $from, $to): array
+    public function convert($amount, $from, $to): ConvertedMoney
     {
         $responseArr = $this->getLatestRates($from, $to);
 
         if (isset($responseArr['rates'], $responseArr['rates'][$to])) {
-            return [
-                'conversion_rate' => $responseArr['rates'][$to],
-                'converted_amount' => $amount * $responseArr['rates'][$to],
-            ];
+            return ConvertedMoney::make($amount * $responseArr['rates'][$to], $responseArr['rates'][$to]);
         }
 
-        return [
-            'conversion_rate' => null,
-            'converted_amount' => null,
-        ];
+        return ConvertedMoney::make();
     }
 
     public function getLatestRates($baseCurrencyCode, $convertedCurrencyCode)

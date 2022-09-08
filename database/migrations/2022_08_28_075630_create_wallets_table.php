@@ -15,7 +15,7 @@ return new class extends Migration {
         Schema::create('wallets', function (Blueprint $table) {
             $table->id();
             $table->string('currency_code', 3);
-            $table->foreignIdFor(\App\Models\User::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(\App\Models\User::class)->constrained();
             $table->timestamps();
 
             $table->foreign('currency_code')->references('code')->on('currencies');

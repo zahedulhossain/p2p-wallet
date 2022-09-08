@@ -5,6 +5,7 @@ namespace App\Actions;
 use App\Models\Wallet;
 use App\Queries\ApproveMoneyTransferQuery;
 use App\Services\CurrencyConverter\CurrencyConverter;
+use App\Values\ConvertedMoney;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class MakePayment
@@ -40,15 +41,15 @@ class MakePayment
         }
 
         if ($senderWallet->currency_code !== $receiverWallet->currency_code) {
-            $convertedAmountArr = $this->converter->convert($amount, $senderWallet->currency_code, $receiverWallet->currency_code);
+            $convertedMoney = $this->converter->convert($amount, $senderWallet->currency_code, $receiverWallet->currency_code);
         }
 
         return $this->approveTransferQuery->execute(
             $fromWalletId,
             $toWalletId,
             $amount,
+            $convertedMoney ?? ConvertedMoney::make(),
             $note,
-            $convertedAmountArr ?? null
         );
     }
 }

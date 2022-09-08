@@ -5,11 +5,12 @@ namespace App\Queries;
 use App\Models\Enums\PaymentStatus;
 use App\Models\Payment;
 use App\Models\Transaction;
+use App\Values\ConvertedMoney;
 use Illuminate\Support\Facades\DB;
 
 class ApproveMoneyTransferQuery
 {
-    public function execute($senderWalletId, $receiverWalletId, $amount, $note = null, $conversionArr = null): \Illuminate\Database\Eloquent\Model
+    public function execute($senderWalletId, $receiverWalletId, $amount, ConvertedMoney $convertedMoney, $note = null): \Illuminate\Database\Eloquent\Model
     {
         DB::beginTransaction();
         try {
@@ -18,8 +19,8 @@ class ApproveMoneyTransferQuery
                 'from_wallet_id' => $senderWalletId,
                 'to_wallet_id' => $receiverWalletId,
                 'amount' => $amount,
-                'conversion_rate' => $conversionArr['conversion_rate'] ?? null,
-                'converted_amount' => $conversionArr['converted_amount'] ?? null,
+                'conversion_rate' => $convertedMoney->getConversionRate(),
+                'converted_amount' => $convertedMoney->getAmount(),
                 'note' => $note,
             ]);
 
@@ -32,7 +33,7 @@ class ApproveMoneyTransferQuery
             Transaction::query()->create([
                 'wallet_id' => $receiverWalletId,
                 'action' => 'deposit',
-                'amount' => $conversionArr['converted_amount'] ?? $amount,
+                'amount' => $convertedMoney->getAmount() ?? $amount,
             ]);
 
             DB::commit();
