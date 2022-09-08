@@ -7,7 +7,6 @@ use App\Http\Requests\LoginRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthenticationController extends Controller
@@ -27,7 +26,7 @@ class AuthenticationController extends Controller
             'data' => [
                 'type' => 'Bearer',
                 'token' => $user->createToken($user)->plainTextToken,
-            ]
+            ],
         ]);
     }
 

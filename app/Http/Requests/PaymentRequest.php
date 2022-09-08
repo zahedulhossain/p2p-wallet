@@ -27,7 +27,7 @@ class PaymentRequest extends FormRequest
             'from_wallet_id' => ['required', 'exists:wallets,id'],
             'to_wallet_id' => ['required', 'exists:wallets,id'],
             'amount' => ['required', 'numeric', 'min:10'],
-            'note' => ['nullable', 'string', 'max:255']
+            'note' => ['nullable', 'string', 'max:255'],
         ];
     }
 }

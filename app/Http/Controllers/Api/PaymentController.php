@@ -27,8 +27,8 @@ class PaymentController extends Controller
 
         return response()->json([
             'data' => [
-                'payment' => new PaymentResource($payment)
-            ]
+                'payment' => new PaymentResource($payment),
+            ],
         ], Response::HTTP_CREATED);
     }
 }

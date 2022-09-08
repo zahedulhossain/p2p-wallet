@@ -27,7 +27,7 @@ class Wallet extends Model
     public function balance(): Attribute
     {
         return Attribute::get(
-            fn() => $this->transactions()->deposits()->sum('amount') - $this->transactions()->withdraws()->sum('amount')
+            fn () => $this->transactions()->deposits()->sum('amount') - $this->transactions()->withdraws()->sum('amount')
         );
     }
 }

@@ -13,7 +13,7 @@ class Transaction extends Model
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
     protected $casts = [
-        'action' => TransactionAction::class
+        'action' => TransactionAction::class,
     ];
 
     public function scopeDeposits($query)

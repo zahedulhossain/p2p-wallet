@@ -23,7 +23,7 @@ test('users can transfer money to other users wallet in same currency', function
     ]);
     Transaction::factory()->deposit()->create([
         'wallet_id' => $wallet->id,
-        'amount' => $amount = faker()->randomFloat(2, 10, 100)
+        'amount' => $amount = faker()->randomFloat(2, 10, 100),
     ]);
 
     $response = $this->actingAs($user)->postJson('/api/payments', [
@@ -33,7 +33,7 @@ test('users can transfer money to other users wallet in same currency', function
         'note' => $note = faker()->sentence,
     ]);
 
-    $response->assertCreated()->assertJson(fn(AssertableJson $json) => $json->has('data.payment'));
+    $response->assertCreated()->assertJson(fn (AssertableJson $json) => $json->has('data.payment'));
 
     $this->assertDatabaseHas('payments', [
         'status' => PaymentStatus::Approved,
@@ -49,8 +49,8 @@ test('users can transfer money to other users wallet in same currency', function
 test('users can transfer money to other users having different currency based wallet', function () {
     Http::fake([
         'openexchangerates.org/*' => Http::response([
-            'disclaimer' => "https://openexchangerates.org/terms/",
-            'license' => "https://openexchangerates.org/license/",
+            'disclaimer' => 'https://openexchangerates.org/terms/',
+            'license' => 'https://openexchangerates.org/license/',
             'timestamp' => 1449877801,
             'base' => 'USD',
             'rates' => ['EUR' => $rate = '0.96'],
@@ -70,7 +70,7 @@ test('users can transfer money to other users having different currency based wa
     ]);
     Transaction::factory()->deposit()->create([
         'wallet_id' => $wallet->id,
-        'amount' => $amount = faker()->randomFloat(2, 10, 100)
+        'amount' => $amount = faker()->randomFloat(2, 10, 100),
     ]);
 
     $response = $this->actingAs($user)->postJson('/api/payments', [
@@ -80,7 +80,7 @@ test('users can transfer money to other users having different currency based wa
         'note' => $note = faker()->sentence,
     ]);
 
-    $response->assertCreated()->assertJson(fn(AssertableJson $json) => $json->has('data.payment'));
+    $response->assertCreated()->assertJson(fn (AssertableJson $json) => $json->has('data.payment'));
 
     $this->assertDatabaseHas('payments', [
         'status' => PaymentStatus::Approved,
@@ -115,8 +115,8 @@ test('users cannot transfer money without sufficient balance', function () {
     ]);
 
     $response->assertForbidden()
-        ->assertJson(fn(AssertableJson $json) =>
-            $json->where('message', 'Oops! Your account balance is insufficient.')
+        ->assertJson(
+            fn (AssertableJson $json) => $json->where('message', 'Oops! Your account balance is insufficient.')
                 ->etc()
         );
 });
@@ -137,9 +137,9 @@ test('users cannot transfer money to their own wallet', function () {
     ]);
 
     $response->assertForbidden()
-        ->assertJson(fn(AssertableJson $json) =>
-        $json->where('message', 'Oops! You selected yourself as the receiver.')
-            ->etc()
+        ->assertJson(
+            fn (AssertableJson $json) => $json->where('message', 'Oops! You selected yourself as the receiver.')
+                ->etc()
         );
 });
 
@@ -164,8 +164,8 @@ test('users cannot transfer money from other users wallet', function () {
     ]);
 
     $response->assertForbidden()
-        ->assertJson(fn(AssertableJson $json) =>
-        $json->where('message', 'Oops! This wallet does not belong to you.')
-            ->etc()
+        ->assertJson(
+            fn (AssertableJson $json) => $json->where('message', 'Oops! This wallet does not belong to you.')
+                ->etc()
         );
 });

@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Actions\CreateNewUser;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class RegisteredUserController extends Controller
@@ -27,7 +25,7 @@ class RegisteredUserController extends Controller
                 'user' => $user,
                 'type' => 'Bearer',
                 'token' => $user->createToken($user)->plainTextToken,
-            ]
+            ],
         ]);
     }
 }

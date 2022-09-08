@@ -3,13 +3,11 @@
 namespace App\Actions;
 
 use App\Models\Wallet;
-use App\Queries\ApproveMoneyTransferQuery;
-use App\Services\CurrencyConverter\CurrencyConverter;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class CreateWallet
 {
-    public function execute($userId, $currencyCode, ): \Illuminate\Database\Eloquent\Model
+    public function execute($userId, $currencyCode): \Illuminate\Database\Eloquent\Model
     {
         $wallet = Wallet::query()
             ->where('currency_code', $currencyCode)
@@ -22,7 +20,7 @@ class CreateWallet
 
         return Wallet::query()->create([
             'currency_code' => $currencyCode,
-            'user_id' => $userId
+            'user_id' => $userId,
         ]);
     }
 }

@@ -23,13 +23,13 @@ class OpenExchangeRates implements CurrencyConverter
         if (isset($responseArr['rates'], $responseArr['rates'][$to])) {
             return [
                 'conversion_rate' => $responseArr['rates'][$to],
-                'converted_amount' => $amount * $responseArr['rates'][$to]
+                'converted_amount' => $amount * $responseArr['rates'][$to],
             ];
         }
 
         return [
             'conversion_rate' => null,
-            'converted_amount' => null
+            'converted_amount' => null,
         ];
     }
 
@@ -43,7 +43,7 @@ class OpenExchangeRates implements CurrencyConverter
         $url = "{$this->url}/api/latest.json";
         $query = [
             'base' => $baseCurrencyCode,
-            'symbols' => $convertedCurrencyCode
+            'symbols' => $convertedCurrencyCode,
         ];
 
         $response = Http::withHeaders($headers)->get($url, $query);

@@ -34,5 +34,5 @@ return [
     'openexchangerates' => [
         'app_id' => env('OPENEXCHANGERATES_APP_ID'),
         'url' => env('OPENEXCHANGERATES_URL'),
-    ]
+    ],
 ];

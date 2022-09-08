@@ -18,7 +18,7 @@ class CurrencyFactory extends Factory
     {
         return [
             'code' => $this->faker->unique()->currencyCode(),
-            'name' => $this->faker->word
+            'name' => $this->faker->word,
         ];
     }
 
@@ -28,7 +28,7 @@ class CurrencyFactory extends Factory
             return [
                 'code' => 'USD',
                 'name' => 'United States dollar',
-                'symbol' => '$'
+                'symbol' => '$',
             ];
         });
     }
@@ -39,7 +39,7 @@ class CurrencyFactory extends Factory
             return [
                 'code' => 'EUR',
                 'name' => 'Euro',
-                'symbol' => '€'
+                'symbol' => '€',
             ];
         });
     }
@@ -50,7 +50,7 @@ class CurrencyFactory extends Factory
             return [
                 'code' => 'BDT',
                 'name' => 'Bangladeshi taka',
-                'symbol' => '৳'
+                'symbol' => '৳',
             ];
         });
     }

@@ -14,7 +14,7 @@ test('users can create wallet', function () {
     ]);
 
     $response->assertCreated()
-        ->assertJson(fn(AssertableJson $json) => $json->has('data.wallet'));
+        ->assertJson(fn (AssertableJson $json) => $json->has('data.wallet'));
 });
 
 test('a user can have only one wallet for a currency', function () {
@@ -30,8 +30,8 @@ test('a user can have only one wallet for a currency', function () {
     ]);
 
     $response->assertForbidden()
-        ->assertJson(fn(AssertableJson $json) =>
-        $json->where('message', 'You can have only one wallet for ' . $currency->code . ' currency!')
-            ->etc()
+        ->assertJson(
+            fn (AssertableJson $json) => $json->where('message', 'You can have only one wallet for ' . $currency->code . ' currency!')
+                ->etc()
         );
 });

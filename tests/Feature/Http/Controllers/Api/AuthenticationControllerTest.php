@@ -12,7 +12,7 @@ test('users can get token to login', function () {
     ]);
 
     $response->assertOk()
-        ->assertJson(fn(AssertableJson $json) => $json->hasAll('data.type', 'data.token'));
+        ->assertJson(fn (AssertableJson $json) => $json->hasAll('data.type', 'data.token'));
 });
 
 test('users can revoke their token', function () {
@@ -36,6 +36,6 @@ test('users can not login with invalid password', function () {
 
     $response->assertUnauthorized()
         ->assertJson([
-            'message' => 'The given credentials are invalid'
+            'message' => 'The given credentials are invalid',
         ]);
 });

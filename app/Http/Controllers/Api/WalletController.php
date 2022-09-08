@@ -16,8 +16,8 @@ class WalletController extends Controller
 
         return response()->json([
             'data' => [
-                'wallet' => new WalletResource($wallet)
-            ]
+                'wallet' => new WalletResource($wallet),
+            ],
         ], Response::HTTP_CREATED);
     }
 }

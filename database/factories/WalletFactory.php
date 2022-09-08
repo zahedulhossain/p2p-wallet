@@ -20,7 +20,7 @@ class WalletFactory extends Factory
     {
         return [
             'currency_code' => Currency::factory(),
-            'user_id' => User::factory()
+            'user_id' => User::factory(),
         ];
     }
 }

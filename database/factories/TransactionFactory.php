@@ -29,18 +29,18 @@ class TransactionFactory extends Factory
     public function deposit()
     {
         return $this->state(function (array $attributes) {
-           return [
-               'action' => TransactionAction::Deposit
-           ];
+            return [
+                'action' => TransactionAction::Deposit,
+            ];
         });
     }
 
     public function withdraw()
     {
         return $this->state(function (array $attributes) {
-           return [
-               'action' => TransactionAction::Withdraw
-           ];
+            return [
+                'action' => TransactionAction::Withdraw,
+            ];
         });
     }
 }

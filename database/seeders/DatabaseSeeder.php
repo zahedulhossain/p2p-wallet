@@ -19,6 +19,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'user@example.com',
         ]);
 
-         \App\Models\Wallet::factory(155)->create();
+        \App\Models\Wallet::factory(155)->create();
     }
 }

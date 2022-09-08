@@ -13,9 +13,9 @@ class MakePayment
     private CurrencyConverter $converter;
 
     public function __construct(
-        CurrencyConverter $converter, ApproveMoneyTransferQuery $approveTransferQuery
-    )
-    {
+        CurrencyConverter $converter,
+        ApproveMoneyTransferQuery $approveTransferQuery
+    ) {
         $this->converter = $converter;
         $this->approveTransferQuery = $approveTransferQuery;
     }

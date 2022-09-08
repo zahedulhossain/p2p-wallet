@@ -20,7 +20,7 @@ class ApproveMoneyTransferQuery
                 'amount' => $amount,
                 'conversion_rate' => $conversionArr['conversion_rate'] ?? null,
                 'converted_amount' => $conversionArr['converted_amount'] ?? null,
-                'note' => $note
+                'note' => $note,
             ]);
 
             Transaction::query()->create([
