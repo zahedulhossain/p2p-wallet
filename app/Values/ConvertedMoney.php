@@ -8,7 +8,7 @@ class ConvertedMoney
     {
     }
 
-    public static function make(?float $amount = null, ?float $conversionRate = null): ConvertedMoney
+    public static function make(?float $amount = null, ?float $conversionRate = null): self
     {
         return new self($amount, $conversionRate);
     }
