@@ -1,0 +1,51 @@
+name: p2p-wallet PEST suite
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  application-tests:
+
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0.21
+        env:
+          MYSQL_DATABASE: laravel
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup PHP version
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+
+      - name: Copy .env from .env.example
+        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate --strict
+
+      - name: Install php dependencies
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+      - name: Generate app key
+        run: php artisan key:generate
+
+      - name: Set cache directory permissions
+        run: chmod -R 775 storage bootstrap/cache
+
+      - name: Migrate database and Execute tests
+        run: |
+          php artisan migrate:fresh
+          vendor/bin/pest --ci
