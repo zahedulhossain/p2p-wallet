@@ -15,7 +15,7 @@ class PaymentController extends Controller
         //
     }
 
-    public function store(PaymentRequest $request, MakePayment $makePayment)
+    public function store(PaymentRequest $request, MakePayment $makePayment): \Illuminate\Http\JsonResponse
     {
         $payment = $makePayment->execute(
             $request->user(),

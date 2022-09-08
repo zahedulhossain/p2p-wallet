@@ -45,7 +45,14 @@ jobs:
       - name: Set cache directory permissions
         run: chmod -R 775 storage bootstrap/cache
 
-      - name: Migrate database and Execute tests
+      - name: Migrate database
         run: |
           php artisan migrate:fresh
+
+      - name: Execute tests
+        run: |
           vendor/bin/pest --ci
+
+      - name: Execute static analysis
+        run: |
+          vendor/bin/phpstan analyse -n

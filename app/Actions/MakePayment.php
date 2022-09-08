@@ -35,7 +35,7 @@ class MakePayment
             throw new AccessDeniedHttpException('Oops! You selected yourself as the receiver.');
         }
 
-        if ($senderWallet->balance < $amount) {
+        if ($senderWallet->getAttribute('balance') < $amount) {
             throw new AccessDeniedHttpException('Oops! Your account balance is insufficient.');
         }
 

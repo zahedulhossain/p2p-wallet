@@ -15,9 +15,9 @@ class WalletResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'owner_id' => $this->user_id,
-            'currency_code' => $this->currency_code,
+            'id' => $this->resource->id,
+            'owner_id' => $this->resource->user_id,
+            'currency_code' => $this->resource->currency_code,
         ];
     }
 }

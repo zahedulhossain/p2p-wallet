@@ -10,7 +10,7 @@ use Illuminate\Http\Response;
 
 class WalletController extends Controller
 {
-    public function store(WalletRequest $request, CreateWallet $creator)
+    public function store(WalletRequest $request, CreateWallet $creator): \Illuminate\Http\JsonResponse
     {
         $wallet = $creator->execute($request->user()->id, $request->validated('currency_code'));
 
