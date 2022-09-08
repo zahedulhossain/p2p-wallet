@@ -142,3 +142,30 @@ test('users cannot transfer money to their own wallet', function () {
             ->etc()
         );
 });
+
+test('users cannot transfer money from other users wallet', function () {
+    $user = User::factory()->create();
+    $currency = Currency::factory()->usd()->create();
+    $wallet = Wallet::factory()->create([
+        'currency_code' => $currency->code,
+        'user_id' => $user->id,
+    ]);
+    $user2 = User::factory()->create();
+    $wallet2 = Wallet::factory()->create([
+        'currency_code' => $currency->code,
+        'user_id' => $user2->id,
+    ]);
+
+    $response = $this->actingAs($user)->postJson('/api/payments', [
+        'from_wallet_id' => $wallet2->id,
+        'to_wallet_id' => $wallet->id,
+        'amount' => faker()->randomFloat(2, 10, 100),
+        'note' => faker()->sentence,
+    ]);
+
+    $response->assertForbidden()
+        ->assertJson(fn(AssertableJson $json) =>
+        $json->where('message', 'Oops! This wallet does not belong to you.')
+            ->etc()
+        );
+});

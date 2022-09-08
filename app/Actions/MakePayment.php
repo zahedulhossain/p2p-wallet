@@ -28,7 +28,7 @@ class MakePayment
         $receiver = $receiverWallet->owner;
 
         if ($sender->isNot($senderWallet->owner)) {
-            throw new AccessDeniedHttpException('Oops! This wallet does not belongs to you.');
+            throw new AccessDeniedHttpException('Oops! This wallet does not belong to you.');
         }
 
         if ($sender->is($receiver)) {

@@ -8,7 +8,7 @@ test('users can register an account', function () {
     $response = $this->postJson('/api/register', [
         'name' => faker()->name,
         'email' => faker()->email,
-        'password' => $password = faker()->password,
+        'password' => $password = faker()->password(8) . faker()->toUpper(faker()->randomLetter) . faker()->toLower(faker()->randomLetter),
         'password_confirmation' => $password
     ]);
 
