@@ -31,17 +31,10 @@ class AuthenticationController extends Controller
         ]);
     }
 
-    public function show(): bool
-    {
-        return Auth::check();
-    }
-
     public function destroy(Request $request): \Illuminate\Http\JsonResponse
     {
-        $request->user()->currentAccessToken()->delete();
+        $request->user()->tokens()->delete();
 
-        return response()->json([
-            'success' => true,
-        ]);
+        return response()->json([], Response::HTTP_NO_CONTENT);
     }
 }
