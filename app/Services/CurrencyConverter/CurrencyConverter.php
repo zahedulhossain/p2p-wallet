@@ -2,7 +2,7 @@
 
 namespace App\Services\CurrencyConverter;
 
-use App\Values\ConvertedMoney;
+use App\Data\ConvertedMoney;
 
 interface CurrencyConverter
 {

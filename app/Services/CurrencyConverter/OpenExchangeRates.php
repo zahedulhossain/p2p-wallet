@@ -2,7 +2,7 @@
 
 namespace App\Services\CurrencyConverter;
 
-use App\Values\ConvertedMoney;
+use App\Data\ConvertedMoney;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Http;
 
@@ -22,10 +22,10 @@ class OpenExchangeRates implements CurrencyConverter
         $responseArr = $this->getLatestRates($from, $to);
 
         if (isset($responseArr['rates'], $responseArr['rates'][$to])) {
-            return ConvertedMoney::make($amount * $responseArr['rates'][$to], $responseArr['rates'][$to]);
+            return new ConvertedMoney($amount * $responseArr['rates'][$to], $responseArr['rates'][$to]);
         }
 
-        return ConvertedMoney::make();
+        return new ConvertedMoney();
     }
 
     public function getLatestRates($baseCurrencyCode, $convertedCurrencyCode)

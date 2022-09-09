@@ -2,10 +2,10 @@
 
 namespace App\Actions;
 
+use App\Data\ConvertedMoney;
 use App\Models\Wallet;
 use App\Queries\ApproveMoneyTransferQuery;
 use App\Services\CurrencyConverter\CurrencyConverter;
-use App\Values\ConvertedMoney;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class MakePayment
@@ -48,7 +48,7 @@ class MakePayment
             $fromWalletId,
             $toWalletId,
             $amount,
-            $convertedMoney ?? ConvertedMoney::make(),
+            $convertedMoney ?? new ConvertedMoney(),
             $note,
         );
     }
