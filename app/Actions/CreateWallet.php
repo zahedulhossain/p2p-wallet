@@ -7,7 +7,7 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class CreateWallet
 {
-    public function execute($userId, $currencyCode): \Illuminate\Database\Eloquent\Model
+    public function __invoke(int $userId, string $currencyCode): \Illuminate\Database\Eloquent\Model
     {
         $wallet = Wallet::query()
             ->where('currency_code', $currencyCode)

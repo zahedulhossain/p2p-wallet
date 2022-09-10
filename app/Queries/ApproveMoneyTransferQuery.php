@@ -6,12 +6,18 @@ use App\Data\ConvertedMoney;
 use App\Models\Enums\PaymentStatus;
 use App\Models\Payment;
 use App\Models\Transaction;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 class ApproveMoneyTransferQuery
 {
-    public function execute($senderWalletId, $receiverWalletId, $amount, ConvertedMoney $convertedMoney, $note = null): \Illuminate\Database\Eloquent\Model
-    {
+    public function execute(
+        int $senderWalletId,
+        int $receiverWalletId,
+        float $amount,
+        ConvertedMoney $convertedMoney,
+        string $note = null
+    ): Model {
         DB::beginTransaction();
         try {
             $payment = Payment::query()->create([

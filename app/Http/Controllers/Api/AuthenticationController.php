@@ -5,19 +5,20 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 
 class AuthenticationController extends Controller
 {
-    public function store(LoginRequest $request): \Illuminate\Http\JsonResponse
+    public function store(LoginRequest $request): JsonResponse
     {
         $user = User::query()->where('email', $request->input('username'))->first();
 
         if (!$user || !Hash::check($request->input('password'), $user->password)) {
             return response()->json(
-                ['message' => 'The given credentials are invalid'],
+                ['message' => 'The given credentials are incorrect!'],
                 Response::HTTP_UNAUTHORIZED
             );
         }
@@ -30,7 +31,7 @@ class AuthenticationController extends Controller
         ]);
     }
 
-    public function destroy(Request $request): \Illuminate\Http\JsonResponse
+    public function destroy(Request $request): JsonResponse
     {
         $request->user()->tokens()->delete();
 

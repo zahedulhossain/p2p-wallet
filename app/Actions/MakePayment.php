@@ -3,6 +3,7 @@
 namespace App\Actions;
 
 use App\Data\ConvertedMoney;
+use App\Models\User;
 use App\Models\Wallet;
 use App\Queries\ApproveMoneyTransferQuery;
 use App\Services\CurrencyConverter\CurrencyConverter;
@@ -21,7 +22,7 @@ class MakePayment
         $this->approveTransferQuery = $approveTransferQuery;
     }
 
-    public function execute($sender, $fromWalletId, $toWalletId, $amount, $note = null): \Illuminate\Database\Eloquent\Model
+    public function __invoke(User $sender, int $fromWalletId, int $toWalletId, float $amount, string $note = null): \Illuminate\Database\Eloquent\Model
     {
         $senderWallet = Wallet::query()->findOrFail($fromWalletId);
         $receiverWallet = Wallet::query()->findOrFail($toWalletId);

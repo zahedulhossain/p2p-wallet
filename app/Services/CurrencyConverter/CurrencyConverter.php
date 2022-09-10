@@ -6,5 +6,5 @@ use App\Data\ConvertedMoney;
 
 interface CurrencyConverter
 {
-    public function convert($amount, $from, $to): ConvertedMoney;
+    public function convert(float $amount, string $from, string $to): ConvertedMoney;
 }

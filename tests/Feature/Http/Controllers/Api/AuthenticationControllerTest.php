@@ -36,6 +36,6 @@ test('users can not login with invalid password', function () {
 
     $response->assertUnauthorized()
         ->assertJson([
-            'message' => 'The given credentials are invalid',
+            'message' => 'The given credentials are incorrect!',
         ]);
 });
