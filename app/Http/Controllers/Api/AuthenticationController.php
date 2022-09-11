@@ -33,7 +33,7 @@ class AuthenticationController extends Controller
 
     public function destroy(Request $request): JsonResponse
     {
-        $request->user()->tokens()->delete();
+        $request->user()?->tokens()->delete();
 
         return response()->json([], Response::HTTP_NO_CONTENT);
     }

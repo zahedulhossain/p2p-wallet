@@ -6,6 +6,7 @@ use App\Actions\MakePayment;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PaymentRequest;
 use App\Http\Resources\PaymentResource;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
@@ -13,6 +14,10 @@ class PaymentController extends Controller
 {
     public function store(PaymentRequest $request, MakePayment $makePayment): JsonResponse
     {
+        if (!$request->user()) {
+            throw new AuthenticationException();
+        }
+
         $payment = $makePayment(
             $request->user(),
             $request->validated('from_wallet_id'),
