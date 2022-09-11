@@ -14,7 +14,7 @@ class OpenExchangeRates implements CurrencyConverter
 
     public function __construct()
     {
-        if (!config('services.openexchangerates.url') || !config('services.openexchangerates.app_id')) {
+        if (!$this->isEnvSpecified()) {
             throw new MissingEnvVariableException();
         }
 
@@ -27,7 +27,7 @@ class OpenExchangeRates implements CurrencyConverter
         $responseArr = $this->getLatestRates($from, $to);
 
         if (isset($responseArr['rates'], $responseArr['rates'][$to])) {
-            return new ConvertedMoney((float) $amount * $responseArr['rates'][$to], (float) $responseArr['rates'][$to]);
+            return new ConvertedMoney($amount * $responseArr['rates'][$to], $responseArr['rates'][$to]);
         }
 
         return new ConvertedMoney();
@@ -59,5 +59,18 @@ class OpenExchangeRates implements CurrencyConverter
         }
 
         return $response->json() ?: [];
+    }
+
+    private function isEnvSpecified(): bool
+    {
+        if (app()->environment('testing')) {
+            return true;
+        }
+
+        if (config('services.openexchangerates.url') && config('services.openexchangerates.app_id')) {
+            return true;
+        }
+
+        return false;
     }
 }

@@ -59,4 +59,4 @@ jobs:
 
       - name: Execute tests
         run: |
-          vendor/bin/pest --ci
+          XDEBUG_MODE=coverage vendor/bin/pest --coverage --ci
