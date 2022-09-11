@@ -40,7 +40,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Transaction::factory()->deposit()->create([
-            'wallet_id' => $wallet->id
+            'wallet_id' => $wallet->id,
         ]);
     }
 }
